@@ -20,6 +20,8 @@ class User {
 public:
     string name; // User's name
     int id; // User's ID
+    // Vector is Dynamic (can grow and shrink at runtime) while array is of Fixed size (defined at declaration)
+    // Vector is Slightly slower due to dynamic allocation while arrayis Faster due to fixed allocation
     vector<string> borrowedBooks; // List of books borrowed by the user
     
     // Constructor to initialize a user with a name and ID
@@ -32,6 +34,9 @@ public:
     
     // Method for a user to return a book (removes the bookId from the borrowedBooks list)
     void returnBook(string bookId) {
+        // auto keyword is used for type inference, meaning the compiler automatically determines the variable’s type based on its initializer.
+        // auto x = 10;      // Compiler infers int
+        // auto y = 3.14;    // Compiler infers double
         for (auto it = borrowedBooks.begin(); it != borrowedBooks.end(); ++it) {
             if (*it == bookId) {
                 borrowedBooks.erase(it); // Remove the book from borrowed list
@@ -64,6 +69,7 @@ public:
     
     // Method to search for a book by its title, author, or bookId (keyword can match any of these)
     void searchBook(string keyword) {
+        // auto& is used to automatically deduce the type of a reference when declaring a variable. It is particularly useful when working with complex types or when iterating over containers
         for (const auto& book : books) {
             // Check if the keyword matches any part of the book's title, author, or bookId
             if (book.title.find(keyword) != string::npos || book.author.find(keyword) != string::npos || book.bookId == keyword) {
@@ -114,6 +120,8 @@ public:
     // Method to run test cases on the library functionality
     void runTests() {
         addBook("Test Book", "Test Author", "11111"); // Add a test book to the library
+        // assert is used for debugging to check if a condition holds true
+        // If the condition is false, it prints an error message and aborts the program
         assert(books.size() == 1); // Assert that the library has 1 book
         
         addUser("Test User", 101); // Add a test user
